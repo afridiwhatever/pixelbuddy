@@ -16,7 +16,7 @@ const perks = [
     desc: "All our assets go through a thorough quality check to ensure you get the best product",
   },
   {
-    name: "For The Environment",
+    name: "For The Planet",
     icon: Leaf,
     desc: "1% of our business revenue goes towards environmental causes to help facilitate a greener earth",
   },
@@ -48,22 +48,27 @@ export default function Home() {
         {/* TODO: List Products */}
       </MaxWidthWrapper>
 
-      <section className="border-t border-gray-200 bg-gray-50 py-20">
+      <section className="border-t border-gray-200 bg-gray-50 py-10">
         <MaxWidthWrapper>
+          <h2 className="text-3xl sm:text-5xl mb-8 font-semibold max-w-max mx-auto">
+            Why PixelBuddy?
+          </h2>
           <div className="grid grid-cols-1 gap-y-12 sm:grid-cols-3 sm:gap-x-6 ">
             {perks.map((perk) => {
               return (
                 <div
                   key={perk.name}
-                  className="text-center max-w-max mx-auto flex flex-col items-center"
+                  className="text-center max-w-max mx-auto flex flex-col items-center group"
                 >
                   <div className="h-16 w-16 rounded-full bg-blue-100 grid place-content-center">
-                    {<perk.icon />}
+                    {
+                      <perk.icon className="text-gray-900 group-hover:scale-110 duration-100" />
+                    }
                   </div>
                   <h3 className="mt-6 text-base font-medium text-gray-900">
                     {perk.name}
                   </h3>
-                  <p className="mt-3 text-sm text-muted-foreground">
+                  <p className="mt-3 text-sm text-muted-foreground  max-w-sm">
                     {perk.desc}
                   </p>
                 </div>
