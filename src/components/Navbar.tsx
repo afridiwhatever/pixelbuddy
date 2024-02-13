@@ -7,7 +7,7 @@ const Navbar = () => {
   return (
     <header className="h-16 sticky z-50 top-0 inset-x-0 bg-white">
       <MaxWidthWrapper>
-        <div className="border-b border-gray-200">
+        <div className="border-b border-gray-200 ">
           <div className="flex h-16 items-center">
             {/* todo: mobile nav */}
             <div className="ml-4 flex lg:ml-0">
@@ -17,7 +17,7 @@ const Navbar = () => {
             </div>
 
             {/* nav items */}
-            <div className="hidden lg:block lg:ml-8 lg:self-stretch">
+            <div className="hidden lg:block lg:ml-8 w-full lg:self-stretch">
               <NavItems />
             </div>
           </div>

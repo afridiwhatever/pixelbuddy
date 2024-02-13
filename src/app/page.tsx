@@ -25,7 +25,7 @@ const perks = [
 export default function Home() {
   return (
     <>
-      <MaxWidthWrapper className="">
+      <MaxWidthWrapper>
         <div className="py-20 text-center max-w-3xl mx-auto flex flex-col items-center">
           <h1 className="text-4xl sm:text-6xl font-bold tracking-tight text-gray-900">
             Your marketplace for high-quality{" "}
