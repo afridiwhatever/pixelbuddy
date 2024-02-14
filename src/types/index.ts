@@ -7,4 +7,5 @@ export interface NavItemProps {
   handleOpen: () => void;
   isOpen: boolean;
   isAnyOpen: boolean;
+  close: () => void;
 }
