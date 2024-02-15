@@ -64,9 +64,7 @@ const Navbar = () => {
                 )}
 
                 <div className="ml-4 flow-root lg:ml-6">
-                  <Link href="/cart">
-                    <Cart />
-                  </Link>
+                  <Cart />
                 </div>
               </div>
             </div>
