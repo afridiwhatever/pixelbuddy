@@ -31,7 +31,7 @@ const page = () => {
           Already have an account? Sign-in
           <ArrowRight className="h-4 w-4" />
         </Link>
-        <form action="" className=" self-stretch flex flex-col gap-3.5 pt-4">
+        <form action="" className="self-stretch flex flex-col gap-3.5 pt-4">
           <div className="space-y-1.5">
             <Label htmlFor="email">Email</Label>
             <Input
