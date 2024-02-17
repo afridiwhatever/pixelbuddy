@@ -1,8 +1,7 @@
 import dotenv from "dotenv";
 import path from "path";
 import { Args } from "@/types";
-import { cache } from "react";
-import payload from "payload";
+import payload, { Payload } from "payload";
 
 dotenv.config({
   path: path.resolve(__dirname, "../../.env"),
@@ -17,7 +16,9 @@ if (!cached) {
   };
 }
 
-export const getPayloadClient = async ({ initOptions }: Args = {}) => {
+export const getPayloadClient = async ({
+  initOptions,
+}: Args = {}): Promise<Payload> => {
   if (!process.env.PAYLOAD_SECRET) {
     throw new Error("Payload secret missing");
   }
@@ -27,7 +28,7 @@ export const getPayloadClient = async ({ initOptions }: Args = {}) => {
   }
 
   if (!cached.promise) {
-    payload.init({
+    cached.promise = payload.init({
       secret: process.env.PAYLOAD_SECRET,
       local: initOptions?.express ? false : true,
       ...(initOptions || {}),
