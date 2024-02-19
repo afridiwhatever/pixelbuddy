@@ -11,7 +11,9 @@ const PORT = Number(process.env.PORT) || 3001;
 const createContext = ({
   req,
   res,
-}: trpcExpress.CreateExpressContextOptions) => ({ req, res });
+}: trpcExpress.CreateExpressContextOptions) => {
+  return { req, res };
+};
 
 const start = async () => {
   const payload = await getPayloadClient({
@@ -27,7 +29,7 @@ const start = async () => {
     "/api/trpc",
     trpcExpress.createExpressMiddleware({
       router: appRouter,
-      createContext,
+      createContext: createContext,
     })
   );
 

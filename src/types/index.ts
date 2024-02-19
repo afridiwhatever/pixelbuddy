@@ -14,3 +14,13 @@ export interface NavItemProps {
 export interface Args {
   initOptions?: Partial<InitOptions>;
 }
+
+export interface VerifyEmailProps {
+  token: string;
+}
+
+export interface PageProps {
+  searchParams: {
+    [key: string]: string | string[] | undefined;
+  };
+}

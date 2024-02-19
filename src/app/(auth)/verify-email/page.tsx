@@ -1,11 +1,6 @@
 import VerifyEmail from "@/components/VerifyEmail";
 import Image from "next/image";
-
-interface PageProps {
-  searchParams: {
-    [key: string]: string | string[] | undefined;
-  };
-}
+import { PageProps } from "@/types";
 
 const VerifyEmailPage = ({ searchParams }: PageProps) => {
   const { token, to } = searchParams;
@@ -13,7 +8,7 @@ const VerifyEmailPage = ({ searchParams }: PageProps) => {
   return (
     <div className="mx-auto max-w-max mt-20">
       {token && typeof token === "string" ? (
-        <VerifyEmail />
+        <VerifyEmail token={token} />
       ) : (
         <div className="flex flex-col gap-4 items-center">
           <div className="relative h-60 w-60 ">
