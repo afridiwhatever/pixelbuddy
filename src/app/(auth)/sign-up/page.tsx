@@ -15,6 +15,7 @@ import {
   TauthCredentialValidator,
   authCredentialValidator,
 } from "@/lib/validator/account-credential-validator";
+import { trpc } from "@/trpc/client";
 
 const Page = () => {
   const {
@@ -63,6 +64,9 @@ const Page = () => {
               })}
               placeholder="you@example.com"
             />
+            {errors.email && (
+              <div className="text-red-500 text-sm">{errors.email.message}</div>
+            )}
           </div>
           <div className="space-y-1.5">
             <Label htmlFor="password">Password</Label>
@@ -73,6 +77,11 @@ const Page = () => {
               placeholder="Password"
               {...register("password")}
             />
+            {errors.password && (
+              <div className="text-red-500 text-sm">
+                {errors.password.message}
+              </div>
+            )}
           </div>
           <Button className="bg-blue-600 hover:bg-blue-500">Sign Up</Button>
         </form>
