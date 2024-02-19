@@ -24,7 +24,7 @@ const start = async () => {
   });
 
   app.use(
-    "api/trpc",
+    "/api/trpc",
     trpcExpress.createExpressMiddleware({
       router: appRouter,
       createContext,
@@ -36,11 +36,11 @@ const start = async () => {
   });
 
   nextApp.prepare().then(() => {
-    // payload.logger.info("Nextjs started");
+    payload.logger.info("Nextjs started");
 
     app.listen(PORT, async () => {
       console.log(`Server started on ${PORT}`);
-      // payload.logger.info(`next app url ${process.env.NEXT_PUBLIC_SERVER_URL}`);
+      payload.logger.info(`next app url ${process.env.NEXT_PUBLIC_SERVER_URL}`);
     });
   });
 };

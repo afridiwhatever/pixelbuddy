@@ -1,21 +1,19 @@
 "use client";
 
-import React from "react";
 import { Icons } from "@/components/Icons";
-import { buttonVariants } from "@/components/ui/button";
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import {
   TauthCredentialValidator,
   authCredentialValidator,
 } from "@/lib/validator/account-credential-validator";
 import { trpc } from "@/trpc/client";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
+import { useForm } from "react-hook-form";
 
 const Page = () => {
   const {
@@ -26,10 +24,11 @@ const Page = () => {
     resolver: zodResolver(authCredentialValidator),
   });
 
-  const handleFormSubmit = ({
-    email,
-    password,
-  }: TauthCredentialValidator) => {};
+  const { mutate, isLoading } = trpc.auth.createPayloadUser.useMutation({});
+
+  const handleFormSubmit = ({ email, password }: TauthCredentialValidator) => {
+    mutate({ email, password });
+  };
 
   return (
     <>
@@ -63,6 +62,7 @@ const Page = () => {
                 "focus-visible:ring-red-500": errors.email,
               })}
               placeholder="you@example.com"
+              id="email"
             />
             {errors.email && (
               <div className="text-red-500 text-sm">{errors.email.message}</div>
@@ -75,6 +75,8 @@ const Page = () => {
                 "focus-visible:ring-red-500": errors.password,
               })}
               placeholder="Password"
+              type="password"
+              id="password"
               {...register("password")}
             />
             {errors.password && (
