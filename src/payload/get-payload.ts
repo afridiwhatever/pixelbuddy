@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import path from "path";
 import { Args } from "@/types";
 import payload, { Payload } from "payload";
+import nodemailer from "nodemailer";
 
 dotenv.config({
   path: path.resolve(__dirname, "../../.env"),
