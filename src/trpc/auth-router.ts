@@ -47,8 +47,7 @@ export const authRouter = router({
         token: z.string(),
       })
     )
-    .query(async ({ input }) => {
-      const { token } = input;
+    .query(async ({ input: { token } }) => {
       const payload = await getPayloadClient();
 
       const isVerified = await payload.verifyEmail({
