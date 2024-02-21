@@ -11,9 +11,12 @@ import {
 } from "@/lib/validator/account-credential-validator";
 import { trpc } from "@/trpc/client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { ZodError } from "zod";
+import { useRouter } from "next/navigation";
 
 const Page = () => {
   const {
@@ -24,7 +27,31 @@ const Page = () => {
     resolver: zodResolver(authCredentialValidator),
   });
 
-  const { mutate, isLoading } = trpc.auth.createPayloadUser.useMutation({});
+  const router = useRouter();
+
+  const { mutate, isLoading } = trpc.auth.createPayloadUser.useMutation({
+    onError: (err) => {
+      if (err.data?.code === "CONFLICT") {
+        toast.error("This email is already in use. Sign in instead?");
+        return;
+      }
+
+      if (err instanceof ZodError) {
+        console.log(err);
+        toast.error(err.issues[0].message);
+        return;
+      }
+
+      toast.error("Something went wrong. Please try again");
+    },
+    onSuccess: ({ sentToEmail }) => {
+      toast.success(`Verification email sent to ${sentToEmail}`);
+      router.push(`/verify-email?to=${sentToEmail}`);
+      // setTimeout(() => {
+      //   router.push(`/verify-email?to=${sentToEmail}`);
+      // }, 1);
+    },
+  });
 
   const handleFormSubmit = ({ email, password }: TauthCredentialValidator) => {
     mutate({ email, password });
@@ -85,7 +112,9 @@ const Page = () => {
               </div>
             )}
           </div>
-          <Button className="bg-blue-600 hover:bg-blue-500">Sign Up</Button>
+          <Button className="bg-blue-600 hover:bg-blue-500">
+            {isLoading ? <Loader2 className="animate-spin" /> : "Sign Up"}
+          </Button>
         </form>
       </div>
     </>
