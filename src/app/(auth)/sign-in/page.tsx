@@ -31,22 +31,20 @@ const Page = () => {
 
   const { mutate: signIn, isLoading } = trpc.auth.signIn.useMutation({
     onError: (err) => {
-      toast.error(err.message);
-      //   if (err.data?.code === "CONFLICT") {
-      //     toast.error("This email is already in use. Sign in instead?");
-      //     return;
-      //   }
-      //   if (err instanceof ZodError) {
-      //     console.log(err);
-      //     toast.error(err.issues[0].message);
-      //     return;
-      //   }
-      //   toast.error("Something went wrong. Please try again");
+      if (err.message === "UNAUTHORIZED") {
+        toast.error("Email or Password Incorrect. Try again!");
+        return;
+      }
+
+      if (err instanceof ZodError) {
+        console.log(err);
+        toast.error(err.issues[0].message);
+        return;
+      }
+      toast.error("Something went wrong. Please try again");
       return;
     },
     onSuccess: () => {
-      // toast.success(`Verification email sent to ${sentToEmail}`);
-      //   router.push(`/verify-email?to=${sentToEmail}`);\
       toast.success("Login successful");
     },
   });
@@ -72,7 +70,7 @@ const Page = () => {
           )}
           href="/sign-up"
         >
-          Don&apos;t have an account? Sign up here!
+          Don&apos;t have an account?
           <ArrowRight className="h-4 w-4" />
         </Link>
         <form
