@@ -29,32 +29,30 @@ const Page = () => {
 
   const router = useRouter();
 
-  const { mutate, isLoading } = trpc.auth.createPayloadUser.useMutation({
+  const { mutate: signIn, isLoading } = trpc.auth.signIn.useMutation({
     onError: (err) => {
-      if (err.data?.code === "CONFLICT") {
-        toast.error("This email is already in use. Sign in instead?");
-        return;
-      }
-
-      if (err instanceof ZodError) {
-        console.log(err);
-        toast.error(err.issues[0].message);
-        return;
-      }
-
-      toast.error("Something went wrong. Please try again");
+      toast.error(err.message);
+      //   if (err.data?.code === "CONFLICT") {
+      //     toast.error("This email is already in use. Sign in instead?");
+      //     return;
+      //   }
+      //   if (err instanceof ZodError) {
+      //     console.log(err);
+      //     toast.error(err.issues[0].message);
+      //     return;
+      //   }
+      //   toast.error("Something went wrong. Please try again");
+      return;
     },
-    onSuccess: ({ sentToEmail }) => {
-      toast.success(`Verification email sent to ${sentToEmail}`);
-      router.push(`/verify-email?to=${sentToEmail}`);
-      // setTimeout(() => {
-      //   router.push(`/verify-email?to=${sentToEmail}`);
-      // }, 1);
+    onSuccess: () => {
+      // toast.success(`Verification email sent to ${sentToEmail}`);
+      //   router.push(`/verify-email?to=${sentToEmail}`);\
+      toast.success("Login successful");
     },
   });
 
   const handleFormSubmit = ({ email, password }: TauthCredentialValidator) => {
-    mutate({ email, password });
+    signIn({ email, password });
   };
 
   return (
@@ -62,7 +60,7 @@ const Page = () => {
       <div className="w-full sm:max-w-sm px-8 sm:px-4 pt-20 space-y-2 mx-auto flex flex-col items-center  ">
         <Icons.logo className="h-20 w-20" />
         <h1 className="text-2xl font-semibold tracking-tight">
-          Create an account
+          Sign in to your account
         </h1>
 
         <Link
@@ -72,9 +70,9 @@ const Page = () => {
               className: "gap-1.5 text-blue-500",
             })
           )}
-          href="/sign-in"
+          href="/sign-up"
         >
-          Already have an account? Sign-in
+          Don&apos;t have an account? Sign up here!
           <ArrowRight className="h-4 w-4" />
         </Link>
         <form
@@ -113,7 +111,7 @@ const Page = () => {
             )}
           </div>
           <Button className="bg-blue-600 hover:bg-blue-500">
-            {isLoading ? <Loader2 className="animate-spin" /> : "Sign Up"}
+            {isLoading ? <Loader2 className="animate-spin" /> : "Sign In"}
           </Button>
         </form>
       </div>
