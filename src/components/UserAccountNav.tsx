@@ -1,3 +1,4 @@
+"use client";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -8,8 +9,10 @@ import {
 import { Button } from "./ui/button";
 import { User } from "@/payload/payload-types";
 import Link from "next/link";
+import { useAuth } from "@/hooks/use-auth";
 
 const UserAccountNav = ({ user }: { user: User }) => {
+  const { signOut } = useAuth();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -24,7 +27,9 @@ const UserAccountNav = ({ user }: { user: User }) => {
           <Link href="/sell">Seller Dashboard</Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="cursor-pointer">Log out</DropdownMenuItem>
+        <DropdownMenuItem onClick={signOut} className="cursor-pointer">
+          Log out
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
