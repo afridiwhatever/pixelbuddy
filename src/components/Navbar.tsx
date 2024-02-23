@@ -4,9 +4,17 @@ import { Icons } from "./Icons";
 import NavItems from "./NavItems";
 import { buttonVariants } from "./ui/button";
 import Cart from "./Cart";
+import { getServerSideUser } from "@/payload/payload-utils";
+import { cookies } from "next/headers";
 
-const Navbar = () => {
-  const user = null;
+const Navbar = async () => {
+  const nextCookies = cookies();
+  console.log(nextCookies);
+  const { user } = await getServerSideUser(nextCookies);
+  console.log(user);
+
+  // const user = null;
+
   return (
     <header className="h-16 sticky z-50 top-0 inset-x-0 bg-whit">
       <MaxWidthWrapper>

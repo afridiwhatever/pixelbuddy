@@ -56,12 +56,14 @@ const Page = ({ searchParams }: PageProps) => {
         return;
       }
 
-      if (origin) {
-        router.push(`${origin}`);
-        return;
-      }
+      setTimeout(() => {
+        if (origin) {
+          router.push(`${origin}`);
+          return;
+        }
 
-      router.push("/");
+        router.push("/");
+      }, 2000);
     },
   });
 
