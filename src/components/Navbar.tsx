@@ -6,6 +6,7 @@ import { Icons } from "./Icons";
 import MaxWidthWrapper from "./MaxWidthWrapper";
 import NavItems from "./NavItems";
 import { buttonVariants } from "./ui/button";
+import UserAccountNav from "./UserAccountNav";
 
 const Navbar = async () => {
   const nextCookies = cookies();
@@ -34,7 +35,7 @@ const Navbar = async () => {
               <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
                 {user ? (
                   <>
-                    <div className="h-8 w-24 bg-red-200"></div>
+                    <UserAccountNav user={user} />
                     <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
                   </>
                 ) : (

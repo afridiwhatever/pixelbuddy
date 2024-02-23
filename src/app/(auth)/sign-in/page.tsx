@@ -55,15 +55,13 @@ const Page = ({ searchParams }: PageProps) => {
         router.push("/sell");
         return;
       }
+      if (origin) {
+        router.push(`${origin}`);
+        return;
+      }
 
-      setTimeout(() => {
-        if (origin) {
-          router.push(`${origin}`);
-          return;
-        }
-
-        router.push("/?refresh=true");
-      }, 2000);
+      router.push("/");
+      router.refresh();
     },
   });
 
