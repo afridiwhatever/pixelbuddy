@@ -1,8 +1,7 @@
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
-import { buttonVariants } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { BadgeCheck, Download, Leaf } from "lucide-react";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Download, BadgeCheck, Leaf } from "lucide-react";
 
 const perks = [
   {

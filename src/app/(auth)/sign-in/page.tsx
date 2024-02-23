@@ -62,7 +62,7 @@ const Page = ({ searchParams }: PageProps) => {
           return;
         }
 
-        router.push("/");
+        router.push("/?refresh=true");
       }, 2000);
     },
   });
