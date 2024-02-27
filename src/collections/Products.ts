@@ -46,14 +46,14 @@ export const Products: CollectionConfig = {
       }),
       required: true,
     },
-    {
-      name: "product_files",
-      label: "Products File(s)",
-      type: "relationship",
-      relationTo: "product_files",
-      required: true,
-      hasMany: true,
-    },
+    // {
+    //   name: "product_files",
+    //   label: "Products File(s)",
+    //   type: "relationship",
+    //   relationTo: "product_files",
+    //   required: true,
+    //   hasMany: true,
+    // },
     {
       name: "approvedForSale",
       label: "Product Status",
