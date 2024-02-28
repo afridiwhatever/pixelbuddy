@@ -25,10 +25,38 @@ const youOwnOrPurchased: Access = async ({ req }) => {
       },
     },
   });
-  
+  const ownProductFileIds = products.map((prod) => prod.product_files).flat();
 
+  const { docs: orders } = await req.payload.find({
+    collection: "orders",
+    depth: 2,
+    where: {
+      user: {
+        equals: user.id,
+      },
+    },
+  });
 
-  
+  const purchasedProductFileIds = orders
+    .map((order) => {
+      return order.products.map((product) => {
+        if (typeof product === "string")
+          return req.payload.logger.error("search depth error");
+        return typeof product.product_files === "string"
+          ? product.product_files
+          : //   @ts-expect-error
+            product.product_files.id;
+      });
+    })
+    .filter(Boolean)
+    .flat();
+
+  return {
+    id: {
+      in: [...ownProductFileIds, ...purchasedProductFileIds],
+    },
+  };
+};
 
 export const ProductFiles: CollectionConfig = {
   slug: "product_files",
@@ -54,6 +82,8 @@ export const ProductFiles: CollectionConfig = {
   ],
   access: {
     read: youOwnOrPurchased,
+    update: ({ req }) => req.user.role === "admin",
+    delete: ({ req }) => req.user.role === "admin",
   },
   hooks: {
     beforeChange: [addUser],
