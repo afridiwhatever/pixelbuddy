@@ -71,8 +71,7 @@ export const Media: CollectionConfig = {
     read: async ({ req }) => {
       return await isAdminOrHasAccessToImages()({ req });
     },
-    delete: ({ req }) => {
-      return isAdminOrHasAccessToImages()({ req });
-    },
+    delete: isAdminOrHasAccessToImages(),
+    update: isAdminOrHasAccessToImages(),
   },
 };
