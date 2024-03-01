@@ -4,6 +4,7 @@ import { PRODUCT_CATEGORIES } from "../config";
 export const Products: CollectionConfig = {
   slug: "products",
   access: {},
+
   fields: [
     {
       name: "user",
