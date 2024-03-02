@@ -24,7 +24,7 @@ export interface Config {
  */
 export interface User {
   id: string;
-  role?: ('admin' | 'user') | null;
+  role: 'admin' | 'user';
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -124,8 +124,8 @@ export interface Media {
  */
 export interface Order {
   id: string;
-  _isPaid?: boolean | null;
-  user?: (string | null) | User;
+  _isPaid: boolean;
+  user: string | User;
   products: (string | Product)[];
   updatedAt: string;
   createdAt: string;
