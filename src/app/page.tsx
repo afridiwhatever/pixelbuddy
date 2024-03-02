@@ -1,3 +1,5 @@
+"use client";
+
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { BadgeCheck, Download, Leaf } from "lucide-react";
@@ -47,7 +49,14 @@ export default function Home() {
 
         {/* TODO: List Products */}
 
-        <ProductReel title="Brand New" href="/products" />
+        <ProductReel
+          title="Brand New"
+          href="/products"
+          query={{
+            limit: 4,
+            sort: "desc",
+          }}
+        />
       </MaxWidthWrapper>
 
       <section className="border-t border-gray-200 bg-gray-50 py-10">
