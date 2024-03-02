@@ -2,6 +2,7 @@ import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { BadgeCheck, Download, Leaf } from "lucide-react";
 import Link from "next/link";
+import ProductReel from "@/components/ProductReel";
 
 const perks = [
   {
@@ -45,6 +46,8 @@ export default function Home() {
         </div>
 
         {/* TODO: List Products */}
+
+        <ProductReel title="Brand New" />
       </MaxWidthWrapper>
 
       <section className="border-t border-gray-200 bg-gray-50 py-10">
