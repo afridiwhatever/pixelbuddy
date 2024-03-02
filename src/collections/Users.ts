@@ -7,7 +7,7 @@ export const Users: CollectionConfig = {
       generateEmailHTML: ({ token }) => {
         return `<a href='${process.env.NEXT_PUBLIC_SERVER_URL}/verify-email?token=${token}'>Verify Email MF</a>`;
       },
-      generateEmailSubject: ({ user }) => `Care to verify email ${user.email}`,
+      generateEmailSubject: ({ user }) => `Care to verify email ${user.email}?`,
     },
   },
   access: {

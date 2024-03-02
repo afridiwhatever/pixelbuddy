@@ -38,7 +38,8 @@ export const Orders: CollectionConfig = {
         update: () => false,
       },
       admin: {
-        condition: ({ req }) => req.user.role === "admin",
+        // condition: ({ req }) => req.user.role === "admin",
+        hidden: true,
       },
       required: true,
     },
@@ -47,8 +48,10 @@ export const Orders: CollectionConfig = {
       label: "Ordered By",
       type: "relationship",
       relationTo: "users",
+      required: true,
       admin: {
-        condition: ({ req }) => req.user.role === "admin",
+        // condition: ({ req }) => req.user.role === "admin",
+        hidden: true,
       },
     },
     {
