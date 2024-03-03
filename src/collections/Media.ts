@@ -4,14 +4,15 @@ import { Access } from "payload/types";
 
 const isAdminOrHasAccessToImages = (): Access => {
   return async ({ req }) => {
-    const user = req.user as User | undefined;
+    return true;
+    // const user = req.user as User | undefined;
 
-    if (!user) return false;
-    if (user.role === "admin") return true;
+    // if (!user) return false;
+    // if (user.role === "admin") return true;
 
-    return {
-      user: { equals: req.user.id },
-    };
+    // return {
+    //   user: { equals: req.user.id },
+    // };
   };
 };
 

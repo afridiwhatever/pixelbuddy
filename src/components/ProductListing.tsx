@@ -16,8 +16,6 @@ interface ProductListingProps {
 export const ProductListing = ({ product, index }: ProductListingProps) => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
-  const validUrls: string[] = [];
-
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(true);
@@ -31,6 +29,12 @@ export const ProductListing = ({ product, index }: ProductListingProps) => {
   const label = PRODUCT_CATEGORIES.find(({ value }) => {
     return value === product.category;
   })?.label;
+
+  const validUrls = product.images
+    .map(({ image }) => {
+      return typeof image === "string" ? image : image.url;
+    })
+    .filter(Boolean) as string[];
 
   if (product && isVisible) {
     return (
