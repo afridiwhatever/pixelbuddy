@@ -1,7 +1,12 @@
 "use client";
 import { Product } from "@/payload/payload-types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Skeleton } from "./ui/skeleton";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
+import { PRODUCT_CATEGORIES } from "@/config";
+import { formatPrice } from "@/lib/utils";
+import ImageSlider from "./ImageSlider";
 
 interface ProductListingProps {
   product: Product | null;
@@ -11,7 +16,44 @@ interface ProductListingProps {
 export const ProductListing = ({ product, index }: ProductListingProps) => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
-  if (true) return <ProductPlaceholder />;
+  const validUrls: string[] = [];
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, index * 75);
+
+    return () => clearTimeout(timer);
+  }, [index]);
+
+  if (!product || !isVisible) return <ProductPlaceholder />;
+
+  const label = PRODUCT_CATEGORIES.find(({ value }) => {
+    return value === product.category;
+  })?.label;
+
+  if (product && isVisible) {
+    return (
+      <Link
+        href={`/product/${product.id}`}
+        className={cn("invisible h-full w-full cursor-pointer group/main", {
+          "visible animate-in fade-in-5": isVisible,
+        })}
+      >
+        <div className="flex flex-col w-full">
+          <ImageSlider urls={validUrls} />
+
+          <h3 className="mt-4 font-medium text-sm text-gray-700">
+            {product.name}
+          </h3>
+          <p className="mt-1 text-sm text-gray-500">{label}</p>
+          <p className="mt-1 font-medium text-sm text-gray-900">
+            {formatPrice(product.price)}
+          </p>
+        </div>
+      </Link>
+    );
+  }
 };
 
 const ProductPlaceholder = () => {
