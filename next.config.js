@@ -8,6 +8,12 @@ const nextConfig = {
         port: "3001",
         pathname: "**",
       },
+      {
+        protocol: "https",
+        hostname: "images.pexels.com",
+        port: "",
+        pathname: "**",
+      },
     ],
   },
 };
