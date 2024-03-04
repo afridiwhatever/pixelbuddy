@@ -1,0 +1,14 @@
+/* YourComponentStyles.css */
+
+/* Customize pagination bullet styles */
+.swiper-pagination-bullet {
+  width: 7px;
+  height: 7px;
+  background-color: #cccccc; /* Set your desired background color */
+  opacity: 0.6; /* Set your desired opacity */
+}
+
+/* Customize active pagination bullet styles */
+.swiper-pagination-bullet-active {
+  background-color: #fff; /* Set your desired background color for active bullet */
+}
