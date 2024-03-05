@@ -36,10 +36,10 @@ export const ProductListing = ({ product, index }: ProductListingProps) => {
     })
     .filter(Boolean) as string[];
 
-  validUrls.push(
-    "https://images.pexels.com/photos/17081188/pexels-photo-17081188/free-photo-of-elephants-in-black-and-white.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    "https://images.pexels.com/photos/17860741/pexels-photo-17860741/free-photo-of-drying-puffin.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-  );
+  // validUrls.push(
+  //   "https://images.pexels.com/photos/17081188/pexels-photo-17081188/free-photo-of-elephants-in-black-and-white.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+  //   "https://images.pexels.com/photos/17860741/pexels-photo-17860741/free-photo-of-drying-puffin.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+  // );
 
   if (product && isVisible) {
     return (

@@ -48,8 +48,6 @@ const ImageSlider = ({ urls }: ImageSliderProps) => {
           }}
           className={cn(activeStyles, "right-3 transition", {
             [inactiveStyles]: slideConfig.isEnd,
-            "hover:bg-primary-300 text-primary-800 opacity-100":
-              !slideConfig.isEnd,
           })}
           aria-label="next image"
         >
@@ -62,8 +60,6 @@ const ImageSlider = ({ urls }: ImageSliderProps) => {
           }}
           className={cn(activeStyles, "left-3 transition", {
             [inactiveStyles]: slideConfig.isBeginning,
-            "hover:bg-primary-300 text-primary-800 opacity-100":
-              !slideConfig.isBeginning,
           })}
           aria-label="previous image"
         >
@@ -74,7 +70,7 @@ const ImageSlider = ({ urls }: ImageSliderProps) => {
       <Swiper
         pagination={{ clickable: true }}
         onSwiper={(swiper) => setSwiper(swiper)}
-        spaceBetween={50}
+        spaceBetween={0}
         modules={[Pagination]}
         slidesPerView={1}
         className="h-full w-full"

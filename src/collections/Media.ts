@@ -4,15 +4,14 @@ import { Access } from "payload/types";
 
 const isAdminOrHasAccessToImages = (): Access => {
   return async ({ req }) => {
-    return true;
-    // const user = req.user as User | undefined;
+    const user = req.user as User | undefined;
 
-    // if (!user) return false;
-    // if (user.role === "admin") return true;
+    if (!user) return false;
+    if (user.role === "admin") return true;
 
-    // return {
-    //   user: { equals: req.user.id },
-    // };
+    return {
+      user: { equals: req.user.id },
+    };
   };
 };
 
@@ -70,6 +69,9 @@ export const Media: CollectionConfig = {
   },
   access: {
     read: async ({ req }) => {
+      if (!req.user || req.headers.referer?.includes("sell")) {
+        return true;
+      }
       return await isAdminOrHasAccessToImages()({ req });
     },
     delete: isAdminOrHasAccessToImages(),
