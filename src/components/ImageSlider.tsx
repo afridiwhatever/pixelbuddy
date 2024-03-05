@@ -9,7 +9,6 @@ import { useEffect, useState } from "react";
 import { Pagination } from "swiper/modules";
 import { cn } from "@/lib/utils";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import "../app/swipercustomstyle.css";
 
 interface ImageSliderProps {
   urls: string[];

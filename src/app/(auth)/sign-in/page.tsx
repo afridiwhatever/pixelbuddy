@@ -10,7 +10,6 @@ import {
   authCredentialValidator,
 } from "@/lib/validator/account-credential-validator";
 import { trpc } from "@/trpc/client";
-import { PageProps } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRight, Loader2 } from "lucide-react";
 import Link from "next/link";
@@ -18,6 +17,12 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { ZodError } from "zod";
+
+interface PageProps {
+  searchParams: {
+    [key: string]: string | string[] | undefined;
+  };
+}
 
 const Page = ({ searchParams }: PageProps) => {
   const {

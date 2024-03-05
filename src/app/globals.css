@@ -61,3 +61,15 @@
 .text-theme {
   @apply text-[#6D28D9];
 }
+
+.swiper-pagination-bullet {
+  width: 6px !important;
+  height: 6px !important;
+  background-color: #cccccc !important;
+  opacity: 0.9 !important;
+}
+
+/* Customize active pagination bullet styles */
+.swiper-pagination-bullet-active {
+  background-color: #fff !important;
+}

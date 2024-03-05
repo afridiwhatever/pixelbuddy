@@ -18,9 +18,3 @@ export interface Args {
 export interface VerifyEmailProps {
   token: string;
 }
-
-export interface PageProps {
-  searchParams: {
-    [key: string]: string | string[] | undefined;
-  };
-}
