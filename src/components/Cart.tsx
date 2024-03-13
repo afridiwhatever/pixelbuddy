@@ -14,12 +14,17 @@ import { buttonVariants } from "./ui/button";
 import Image from "next/image";
 import { Separator } from "./ui/separator";
 import { formatPrice } from "@/lib/utils";
+import { useCart } from "@/hooks/use-cart";
 
 const Cart = () => {
+  const { items } = useCart();
   const [isMounted, setIsMounted] = useState(false);
-  const itemCount = 1;
+  const itemCount = items.length;
   const fee = 1;
-  const cartTotal = 5;
+  const cartTotal = items.reduce(
+    (total, { product }) => total + product.price,
+    0
+  );
 
   return (
     <Sheet>

@@ -4,6 +4,7 @@ import { Product } from "@/payload/payload-types";
 import { cn } from "@/lib/utils";
 import { useState, useEffect } from "react";
 import { Check, Loader } from "lucide-react";
+import { useCart } from "@/hooks/use-cart";
 
 const AddToCartButton = ({
   product,
@@ -12,11 +13,14 @@ const AddToCartButton = ({
   product: Product;
   className?: string;
 }) => {
+  const { addItem } = useCart();
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
   const handleClick = () => {
     setIsSubmitting(true);
+    addItem(product);
   };
 
   useEffect(() => {
