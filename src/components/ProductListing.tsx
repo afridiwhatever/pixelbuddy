@@ -13,7 +13,7 @@ interface ProductListingProps {
   index: number;
 }
 
-export const ProductListing = ({ product, index }: ProductListingProps) => {
+const ProductListing = ({ product, index }: ProductListingProps) => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
   useEffect(() => {
@@ -72,3 +72,5 @@ const ProductPlaceholder = () => {
     </div>
   );
 };
+
+export default ProductListing;

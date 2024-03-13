@@ -1,113 +1,13 @@
-// import MaxWidthWrapper from "@/components/MaxWidthWrapper";
-// import { Check, Shield } from "lucide-react";
-// import { Button } from "@/components/ui/button";
-// import Link from "next/link";
-// import ImageSlider from "@/components/ImageSlider";
-// import { getPayloadClient } from "@/payload/get-payload";
-// import { formatPrice } from "@/lib/utils";
-// import { Product } from "@/payload/payload-types";
-
-// interface PageProps {
-//   params: {
-//     productId: string;
-//   };
-// }
-
-// const ProductPage = async ({ params }: PageProps) => {
-//   const { productId } = params;
-
-//   const payload = await getPayloadClient();
-
-//   const { docs } = await payload.find({
-//     collection: "products",
-//     depth: 2,
-//     where: {
-//       id: {
-//         equals: productId,
-//       },
-//       approvedForSale: {
-//         equals: "approved",
-//       },
-//     },
-//   });
-
-//   const [product] = docs;
-
-//   const imageUrls = product.images
-//     .map(({ image }) => {
-//       return typeof image === "string" ? image : image.url;
-//     })
-//     .filter(Boolean) as string[];
-
-//   console.log(imageUrls);
-
-//   return (
-//     <MaxWidthWrapper className="mt-14 lg:mt-24">
-//       <div className="grid lg:grid-cols-2 gap-10 mx-auto max-w-2xl lg:max-w-6xl px-6">
-//         {/* description */}
-//         <div className="flex flex-col justify-end gap-4 text-muted-foreground">
-//           <div className="flex items-center text-sm font-semibold">
-//             <Link href="/">Home</Link>
-//             <svg
-//               viewBox="0 0 20 20"
-//               fill="currentColor"
-//               aria-hidden="true"
-//               className="ml-2 h-5 w-5 flex-shrink-0 text-gray-300"
-//             >
-//               <path d="M5.555 17.776l8-16 .894.448-8 16-.894-.448z" />
-//             </svg>
-//             <Link className="ml-2" href="/products">
-//               Products
-//             </Link>
-//           </div>
-//           <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-//             {product.name}
-//           </h1>
-//           <div>
-//             <span className="text-black font-semibold">
-//               {formatPrice(product.price)}
-//             </span>
-//             <span className="border-l border-gray-300 pl-4 ml-4 capitalize">
-//               {product.category}
-//             </span>
-//           </div>
-//           <p>{product.description}</p>
-//           <div className="flex gap-4 items-center">
-//             <Check className="text-green-500"></Check>
-//             <p className="text-sm">Eligible for instant delivery</p>
-//           </div>
-//         </div>
-
-//         {/* product image */}
-//         <div className="lg:col-start-2 max-w-[625px] lg:self-center lg:row-span-2 self-center aspect-square lg:w-unset">
-//           <ImageSlider urls={imageUrls} />
-//         </div>
-
-//         {/* add to cart */}
-//         <div className="space-y-4 text-sm text-muted-foreground w-full lg:mt-8">
-//           <Button className="w-full">Add to Cart</Button>
-//           <div className="flex gap-2 justify-center">
-//             <Shield className="h-5 w-5"></Shield>
-//             <p className="capitalize">30 day return guarantee</p>
-//           </div>
-//         </div>
-//       </div>
-//     </MaxWidthWrapper>
-//   );
-// };
-
-// export default ProductPage;
-
-// import AddToCartButton from "@/components/AddToCartButton";
 import ImageSlider from "@/components/ImageSlider";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import ProductReel from "@/components/ProductReel";
 import { PRODUCT_CATEGORIES } from "@/config";
-import { getPayloadClient } from "@/payload/get-payload";
 import { formatPrice } from "@/lib/utils";
+import { getPayloadClient } from "@/payload/get-payload";
 import { Check, Shield } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import AddToCartButton from "@/components/AddToCartButton";
 
 interface PageProps {
   params: {
@@ -139,7 +39,7 @@ const Page = async ({ params }: PageProps) => {
 
   const [product] = products;
 
-  // if (!product) return notFound();
+  if (!product) return notFound();
 
   const label = PRODUCT_CATEGORIES.find(
     ({ value }) => value === product.category
@@ -148,8 +48,6 @@ const Page = async ({ params }: PageProps) => {
   const validUrls = product.images
     .map(({ image }) => (typeof image === "string" ? image : image.url))
     .filter(Boolean) as string[];
-
-  console.log(validUrls);
 
   return (
     <MaxWidthWrapper className="bg-white">
@@ -227,8 +125,8 @@ const Page = async ({ params }: PageProps) => {
           {/* add to cart part */}
           <div className="mt-10 lg:col-start-1 lg:row-start-2 lg:max-w-lg lg:self-start">
             <div>
-              <div className="mt-10">
-                {/* <AddToCartButton product={product} /> */}
+              <div className="mt-10 w-full">
+                <AddToCartButton className="w-full" product={product} />
               </div>
               <div className="mt-6 text-center">
                 <div className="group inline-flex text-sm text-medium">
@@ -246,12 +144,12 @@ const Page = async ({ params }: PageProps) => {
         </div>
       </div>
 
-      {/* <ProductReel
+      <ProductReel
         href="/products"
         query={{ category: product.category, limit: 4 }}
         title={`Similar ${label}`}
         subtitle={`Browse similar high-quality ${label} just like '${product.name}'`}
-      /> */}
+      />
     </MaxWidthWrapper>
   );
 };

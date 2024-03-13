@@ -1,8 +1,10 @@
+"use client";
+
 import { TQueryValidator } from "@/lib/validator/query-validator";
 import { Product } from "@/payload/payload-types";
+import ProductListing from "./ProductListing";
 import { trpc } from "@/trpc/client";
 import Link from "next/link";
-import { ProductListing } from "./ProductListing";
 
 interface ProductReelProps {
   title: string;
