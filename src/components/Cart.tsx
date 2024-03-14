@@ -15,10 +15,13 @@ import Image from "next/image";
 import { Separator } from "./ui/separator";
 import { formatPrice } from "@/lib/utils";
 import { useCart } from "@/hooks/use-cart";
+import { ScrollArea } from "./ui/scroll-area";
+import CartItem from "./CartItem";
 
 const Cart = () => {
   const { items } = useCart();
-  const [isMounted, setIsMounted] = useState(false);
+  console.log(items);
+  const [isMounted, setIsMounted] = useState(true);
   const itemCount = items.length;
   const fee = 1;
   const cartTotal = items.reduce(
@@ -40,13 +43,11 @@ const Cart = () => {
         </SheetHeader>
         {itemCount > 0 ? (
           <>
-            {/* <div className="flex w-full flex-col pr-6">
-              <ScrollArea>
-                {items.map(({ product }) => (
-                  <CartItem product={product} key={product.id} />
-                ))}
-              </ScrollArea>
-            </div> */}
+            <ScrollArea className="h-[500px] w-full p-2">
+              {items.map(({ product }) => {
+                return <CartItem key={product.id} product={product} />;
+              })}
+            </ScrollArea>
 
             <div className="space-y-6">
               <Separator />
