@@ -20,7 +20,6 @@ import CartItem from "./CartItem";
 
 const Cart = () => {
   const { items } = useCart();
-  console.log(items);
   const [isMounted, setIsMounted] = useState(true);
   const itemCount = items.length;
   const fee = 1;
@@ -43,9 +42,14 @@ const Cart = () => {
         </SheetHeader>
         {itemCount > 0 ? (
           <>
-            <ScrollArea className="max-h-[700px] w-full p-2">
+            <ScrollArea className="h-[600px] max-h-[700px] w-full p-2">
               {items.map(({ product }) => {
-                return <CartItem key={product.id} product={product} />;
+                return (
+                  <CartItem
+                    key={product.id + Math.random()}
+                    product={product}
+                  />
+                );
               })}
             </ScrollArea>
 

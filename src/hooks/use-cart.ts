@@ -25,9 +25,15 @@ export const useCart = create<CartState>()(
         }),
       removeItem: (productId) =>
         set((state) => {
+          const indexOfProductToRemove = state.items.findIndex(
+            ({ product }) => {
+              return product.id === productId;
+            }
+          );
+
           return {
-            items: state.items.filter(({ product }) => {
-              return product.id !== productId;
+            items: state.items.filter(({ product }, i) => {
+              return i !== indexOfProductToRemove;
             }),
           };
         }),
