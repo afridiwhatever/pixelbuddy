@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Sheet,
   SheetTrigger,
@@ -20,7 +20,7 @@ import CartItem from "./CartItem";
 
 const Cart = () => {
   const { items } = useCart();
-  const [isMounted, setIsMounted] = useState(true);
+  const [isMounted, setIsMounted] = useState(false);
   const itemCount = items.length;
   const fee = 1;
   const cartTotal = items.reduce(
@@ -28,17 +28,17 @@ const Cart = () => {
     0
   );
 
+  useEffect(() => setIsMounted(true), []);
+
   return (
     <Sheet>
       <SheetTrigger className="group -m-2 p-2 flex items-center text-gray-500 hover:text-gray-700">
         <ShoppingCart className="h-6 w-6 flex-shrink-0 " />
-        <span className="ml-2 text-sm font-medium">
-          {isMounted ? itemCount : 0}
-        </span>
+        <span className="ml-2 text-sm font-medium">{itemCount}</span>
       </SheetTrigger>
       <SheetContent className="flex flex-col sm:max-w-lg w-full">
         <SheetHeader>
-          <SheetTitle>Cart ({itemCount})</SheetTitle>
+          <SheetTitle>Cart ({isMounted ? itemCount : 0})</SheetTitle>
         </SheetHeader>
         {itemCount > 0 ? (
           <>
