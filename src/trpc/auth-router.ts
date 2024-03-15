@@ -28,6 +28,7 @@ export const authRouter = router({
 
       await payload.create({
         collection: "users",
+        // @ts-expect-error
         data: { email, password },
       });
 
