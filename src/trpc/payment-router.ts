@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { privateProcedure, router } from "./trpc";
-import { getPayloadClient } from "@/payload/get-payload";
+import { getPayloadClient } from "../payload/get-payload";
+import { stripe } from "../lib/stripe";
 
 export const paymentRouter = router({
   createSession: privateProcedure
@@ -23,5 +24,8 @@ export const paymentRouter = router({
           },
         },
       });
+
+      try {
+      } catch (error) {}
     }),
 });
