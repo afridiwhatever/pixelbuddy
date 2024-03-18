@@ -46,7 +46,7 @@ const Page = ({ searchParams }: PageProps) => {
       }
 
       if (err instanceof ZodError) {
-        console.log(err);
+        err;
         toast.error(err.issues[0].message);
         return;
       }

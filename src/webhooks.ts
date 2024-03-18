@@ -82,9 +82,11 @@ export const stripeWebhookHandler = async (
       },
     });
 
+    console.log("Marked ordered as true");
+
     try {
       const data = await resend.emails.send({
-        from: "PixelBuddy <afridiwhatever@gmail.com",
+        from: "PixelBuddy <afridiwhatever@gmail.com>",
         to: [user.email],
         subject: "Thanks for your order! This is your receipt.",
         html: ReceiptEmailHtml({

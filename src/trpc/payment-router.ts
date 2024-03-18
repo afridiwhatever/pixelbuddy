@@ -13,10 +13,9 @@ export const paymentRouter = router({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      console.log("req reached here");
       const { user } = ctx;
       const { productIds } = input;
-      console.log("ids", productIds);
+
       const payload = await getPayloadClient();
       const { docs: products } = await payload.find({
         collection: "products",
@@ -27,9 +26,8 @@ export const paymentRouter = router({
         },
       });
 
-      console.log("products", products);
       const filteredProducts = products.filter((prod) => Boolean(prod.id));
-      console.log("Filtered", filteredProducts);
+
       const order = await payload.create({
         collection: "orders",
         data: {
@@ -38,8 +36,6 @@ export const paymentRouter = router({
           user: user.id,
         },
       });
-
-      console.log("order", order);
 
       const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] = [];
 
@@ -64,7 +60,6 @@ export const paymentRouter = router({
       });
 
       try {
-        console.log("start stripe session req");
         const stripeSession = await stripe.checkout.sessions.create({
           success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/thank-you?orderId=${order.id}`,
           cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/cart`,
@@ -77,7 +72,6 @@ export const paymentRouter = router({
           line_items,
         });
 
-        console.log(stripeSession.url);
         return { url: stripeSession.url };
       } catch (error) {
         console.log(error);
