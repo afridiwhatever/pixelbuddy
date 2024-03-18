@@ -14,6 +14,10 @@ const nextConfig = {
         port: "",
         pathname: "**",
       },
+      {
+        protocol: "https",
+        hostname: "pixelbuddy-production.up.railway.app",
+      },
     ],
   },
 };

@@ -86,7 +86,7 @@ export const stripeWebhookHandler = async (
 
     try {
       const data = await resend.emails.send({
-        from: "PixelBuddy <afridiwhatever@gmail.com>",
+        from: "PixelBuddy <onboarding@resend.dev>",
         to: [user.email],
         subject: "Thanks for your order! This is your receipt.",
         html: ReceiptEmailHtml({
@@ -99,7 +99,7 @@ export const stripeWebhookHandler = async (
 
       res.status(200).json({ data });
     } catch (error) {
-      res.status(500).json({ error });
+      res.status(500).json({ msg: "Haha noob", error });
     }
   }
   return res.status(200).send("reached the end");
