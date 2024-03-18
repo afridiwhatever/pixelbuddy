@@ -7,6 +7,8 @@ import { inferAsyncReturnType } from "@trpc/server";
 import bodyParser from "body-parser";
 import { IncomingMessage } from "http";
 import { stripeWebhookHandler } from "./webhooks";
+import path from "path";
+import nextBuild from "next/dist/build";
 
 const app = express();
 
@@ -40,6 +42,14 @@ const start = async () => {
       },
     },
   });
+
+  if (process.env.NEXT_BUILD) {
+    payload.logger.info("Next js building");
+
+    // @ts-ignore
+    await nextBuild(path.join(__dirname, "../"));
+    process.exit();
+  }
 
   app.use(
     "/api/trpc",
