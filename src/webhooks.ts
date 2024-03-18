@@ -4,6 +4,8 @@ import { stripe } from "./lib/stripe";
 import type Stripe from "stripe";
 import { getPayloadClient } from "./payload/get-payload";
 import { Resend } from "resend";
+import { ReceiptEmailHtml } from "./components/ReceiptEmailHtml";
+import { Product } from "./payload/payload-types";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -85,7 +87,12 @@ export const stripeWebhookHandler = async (
         from: "PixelBuddy <afridiwhatever@gmail.com",
         to: [user.email],
         subject: "Thanks for your order! This is your receipt.",
-        html: "",
+        html: ReceiptEmailHtml({
+          date: new Date(),
+          email: user.email,
+          orderId: session.metadata.orderId,
+          products: order.products as Product[],
+        }),
       });
 
       res.status(200).json({ data });
