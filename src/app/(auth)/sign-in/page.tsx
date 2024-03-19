@@ -17,6 +17,7 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { ZodError } from "zod";
+import { useUser } from "@/hooks/use-user";
 
 interface PageProps {
   searchParams: {
@@ -32,6 +33,8 @@ const Page = ({ searchParams }: PageProps) => {
   } = useForm<TauthCredentialValidator>({
     resolver: zodResolver(authCredentialValidator),
   });
+
+  const { saveUser } = useUser();
 
   const isSeller = searchParams.as === "seller";
   const { origin } = searchParams;
@@ -53,7 +56,8 @@ const Page = ({ searchParams }: PageProps) => {
       toast.error("Something went wrong. Please try again");
       return;
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
+      saveUser(data.user);
       toast.success("Login successful");
 
       if (isSeller) {

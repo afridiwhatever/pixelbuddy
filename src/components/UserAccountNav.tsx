@@ -10,9 +10,11 @@ import { Button } from "./ui/button";
 import { User } from "@/payload/payload-types";
 import Link from "next/link";
 import { useAuth } from "@/hooks/use-auth";
+import { useUser } from "@/hooks/use-user";
 
 const UserAccountNav = ({ user }: { user: User }) => {
   const { signOut } = useAuth();
+  const { removeUser } = useUser();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -27,7 +29,13 @@ const UserAccountNav = ({ user }: { user: User }) => {
           <Link href="/sell">Seller Dashboard</Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={signOut} className="cursor-pointer">
+        <DropdownMenuItem
+          onClick={() => {
+            signOut();
+            removeUser();
+          }}
+          className="cursor-pointer"
+        >
           Log out
         </DropdownMenuItem>
       </DropdownMenuContent>

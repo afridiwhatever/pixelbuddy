@@ -19,6 +19,7 @@ export const useCart = create<CartState>()(
       items: [],
       addItem: (product) =>
         set((state) => {
+          console.log("zustand product added");
           return {
             items: [...state.items, { product: product }],
           };

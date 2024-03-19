@@ -35,7 +35,7 @@ export const ReciptEmail = ({
   return (
     <Html>
       <Head />
-      <Preview>Your DigitalHippo Receipt</Preview>
+      <Preview>Your PixelBuddy Receipt</Preview>
 
       <Body style={main}>
         <Container style={container}>
@@ -45,7 +45,7 @@ export const ReciptEmail = ({
                 src={`${process.env.NEXT_PUBLIC_SERVER_URL}/hippo-email-sent.png`}
                 width="100"
                 height="100"
-                alt="DigitalHippo"
+                alt="PixelBuddy"
               />
             </Column>
 
@@ -162,7 +162,7 @@ export const ReciptEmail = ({
             <Link href="#">Privacy Policy </Link>
           </Text>
           <Text style={footerCopyright}>
-            Copyright © 2023 DigitalHippo Inc. <br />{" "}
+            Copyright © 2024 PixelBuddy Inc. <br />{" "}
             <Link href="#">All rights reserved</Link>
           </Text>
         </Container>
