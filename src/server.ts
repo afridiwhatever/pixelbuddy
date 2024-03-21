@@ -9,6 +9,8 @@ import { IncomingMessage } from "http";
 import { stripeWebhookHandler } from "./webhooks";
 import path from "path";
 import nextBuild from "next/dist/build";
+import { PayloadRequest } from "payload/types";
+import { parse } from "url";
 
 const app = express();
 
@@ -38,34 +40,66 @@ const start = async () => {
     initOptions: {
       express: app,
       onInit: async (cms) => {
-        cms.logger.info(`Admin url ${cms.getAdminURL()}`);
+        cms.logger.info(`Admin URL: ${cms.getAdminURL()}`);
       },
     },
   });
 
   if (process.env.NEXT_BUILD) {
-    payload.logger.info("Next js building");
+    app.listen(PORT, async () => {
+      payload.logger.info("Next.js is building for production");
 
-    // @ts-ignore
-    await nextBuild(path.join(__dirname, "../"));
-    process.exit();
+      // @ts-expect-error
+      await nextBuild(path.join(__dirname, "../"));
+
+      process.exit();
+    });
+
+    return;
   }
+
+  let count = 0;
+
+  const cartRouter = express.Router();
+
+  cartRouter.use(payload.authenticate);
+
+  cartRouter.get("/", (req, res) => {
+    count++;
+    console.log("req count", count);
+    const request = req as PayloadRequest;
+
+    if (!request.user) {
+      return res.redirect("/sign-in?origin=cart");
+    }
+
+    const parsedUrl = parse(req.url, true);
+    const { query } = parsedUrl;
+
+    console.log("req made after check");
+
+    return nextApp.render(req, res, "/cart", query);
+  });
+
+  app.use("/cart", cartRouter);
 
   app.use(
     "/api/trpc",
     trpcExpress.createExpressMiddleware({
       router: appRouter,
-      createContext: createContext,
+      createContext,
     })
   );
 
   app.use((req, res) => nextHandler(req, res));
 
   nextApp.prepare().then(() => {
-    payload.logger.info("Nextjs started");
+    payload.logger.info("Next.js started");
+
     app.listen(PORT, async () => {
-      console.log(`Server started on ${PORT}`);
-      payload.logger.info(`next app url ${process.env.NEXT_PUBLIC_SERVER_URL}`);
+      payload.logger.info(
+        `Next.js App URL: ${process.env.NEXT_PUBLIC_SERVER_URL}`
+      );
     });
   });
 };

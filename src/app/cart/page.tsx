@@ -17,11 +17,11 @@ const Page = () => {
 
   const router = useRouter();
 
-  const { user } = useUser();
+  // const { user } = useUser();
 
-  if (!user.email) {
-    router.push("/sign-in?origin=cart");
-  }
+  // if (!user.email) {
+  //   router.push("/sign-in?origin=cart");
+  // }
 
   const { mutate: createCheckoutSession, isLoading } =
     trpc.payment.createSession.useMutation({
