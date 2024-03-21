@@ -58,30 +58,26 @@ const start = async () => {
     return;
   }
 
-  let count = 0;
+  // let count = 0;
+  // const cartRouter = express.Router();
+  // cartRouter.use(payload.authenticate);
+  // cartRouter.get("/", (req, res) => {
+  //   count++;
+  //   console.log("req count", count);
+  //   const request = req as PayloadRequest;
 
-  const cartRouter = express.Router();
+  //   if (!request.user) {
+  //     return res.redirect("/sign-in?origin=cart");
+  //   }
 
-  cartRouter.use(payload.authenticate);
+  //   const parsedUrl = parse(req.url, true);
+  //   const { query } = parsedUrl;
 
-  cartRouter.get("/", (req, res) => {
-    count++;
-    console.log("req count", count);
-    const request = req as PayloadRequest;
+  //   console.log("req made after check");
 
-    if (!request.user) {
-      return res.redirect("/sign-in?origin=cart");
-    }
-
-    const parsedUrl = parse(req.url, true);
-    const { query } = parsedUrl;
-
-    console.log("req made after check");
-
-    return nextApp.render(req, res, "/cart", query);
-  });
-
-  app.use("/cart", cartRouter);
+  //   return nextApp.render(req, res, "/cart", query);
+  // });
+  // app.use("/cart", cartRouter);
 
   app.use(
     "/api/trpc",
