@@ -16,12 +16,15 @@ import {
 import { trpc } from "@/trpc/client";
 import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useUser } from "@/hooks/use-user";
 
 const Page = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const isSeller = searchParams.get("as") === "seller";
   const origin = searchParams.get("origin");
+
+  const { saveUser } = useUser();
 
   const continueAsSeller = () => {
     router.push("?as=seller");
@@ -40,15 +43,13 @@ const Page = () => {
   });
 
   const { mutate: signIn, isLoading } = trpc.auth.signIn.useMutation({
-    onSuccess: async () => {
+    onSuccess: async ({ user }) => {
       toast.success("Signed in successfully");
+      saveUser(user);
 
       if (origin) {
-        // router.push("/sell");
-        // router.push(`/${origin}`);
-        // router.push("/");
         router.push(`/${origin}`);
-        // router.refresh();
+        router.refresh();
         return;
       }
 
