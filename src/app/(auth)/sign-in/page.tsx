@@ -24,7 +24,12 @@ const Page = () => {
   const isSeller = searchParams.get("as") === "seller";
   const origin = searchParams.get("origin");
 
-  const { saveUser } = useUser();
+  const { saveUser, user } = useUser();
+
+  if (user.email) {
+    router.push("/");
+    router.refresh();
+  }
 
   const continueAsSeller = () => {
     router.push("?as=seller");

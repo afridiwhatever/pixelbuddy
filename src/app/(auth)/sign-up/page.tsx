@@ -17,6 +17,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { ZodError } from "zod";
 import { useRouter } from "next/navigation";
+import { useUser } from "@/hooks/use-user";
 
 const Page = () => {
   const {
@@ -28,6 +29,17 @@ const Page = () => {
   });
 
   const router = useRouter();
+
+  const { user } = useUser();
+
+  if (user.email) {
+    router.push("/");
+    router.refresh();
+  }
+
+  const continueAsSeller = () => {
+    router.push("?as=seller");
+  };
 
   const { mutate, isLoading } = trpc.auth.createPayloadUser.useMutation({
     onError: (err) => {
